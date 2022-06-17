@@ -1,7 +1,6 @@
 /*
 The chipId portion is based on the GetChipID example sketch which is installed in the Arduino IDE once ESP32 board support is added.
 */
-//#include <Esp.h>
 
 unsigned long lastPrint = 0;				// This is used to determine the time since last MQTT publish.
 unsigned long printDelay = 20000;		// The minimum time between loop() function stat publishing.
@@ -66,6 +65,7 @@ void printStats()
 	Serial.printf( "  Total: %u\n", ESP.getFlashChipSize() );
 	Serial.printf( "  Speed: %u\n", ESP.getFlashChipSpeed() );
 
+	// None of the boards I tried supported these functions.
 	//Serial.println( "?Magic? Flash: " );
 	//Serial.printf( "  Total: %u\n", ESP.magicFlashChipSize() );
 	//Serial.printf( "  Speed: %u\n", ESP.magicFlashChipSpeed() );
@@ -84,14 +84,13 @@ void printStats()
 		Serial.printf( "  Minimum free since boot: %u\n", ESP.getMinFreePsram() );
 	}
 	else
-		Serial.println( "This device has no PSRAM." );
+		Serial.println( "This device lacks PSRAM." );
 } // End of printStats() function.
 
 
 void loop()
 {
 	unsigned long currentTime = millis();
-	//if( currentTime - printDelay < currentTime && currentTime - printDelay > lastPrint )
 	if( currentTime - lastPrint >= printDelay )
 	{
 		printStats();
