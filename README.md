@@ -1,5 +1,5 @@
 # ESP32_CPU_Memory_Info
-A sketch that gathers and prints ESP32 CPU and memory info.
+A sketch that gathers ESP32 CPU and memory info, and prints that to the serial port.
 
 Example output:
 
