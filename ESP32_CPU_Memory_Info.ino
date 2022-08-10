@@ -26,8 +26,8 @@ void setup()
 	// Enable the LEDs and turn them on.
 	pinMode( LED_PIN_1, OUTPUT );
 	digitalWrite( LED_PIN_1, HIGH );
-	pinMode( LED_PIN_2, OUTPUT );
-	digitalWrite( LED_PIN_2, HIGH );
+	// pinMode( LED_PIN_2, OUTPUT );
+	// digitalWrite( LED_PIN_2, HIGH );
 
 	printStats();
 
