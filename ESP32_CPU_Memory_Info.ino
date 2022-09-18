@@ -21,7 +21,7 @@ void setup()
 	Serial.println();
 
 	Serial.println( "The setup() function has begun." );
-	Serial.printf( "Stats will be printed every %u millisecond.\n", printDelay );
+	Serial.printf( "Stats will be printed every %lu millisecond.\n", printDelay );
 
 	// Enable the LEDs and turn them on.
 	pinMode( LED_PIN_1, OUTPUT );
@@ -50,7 +50,8 @@ void printStats()
 	Serial.printf( "  Revision: %d\n", ESP.getChipRevision() );
 	Serial.printf( "  Core count: %d\n", ESP.getChipCores() );
 	Serial.printf( "  Chip ID: %u\n", chipId );
-	Serial.printf( "  Frequency: %u\n", getCpuFrequencyMhz );
+	Serial.print( "  Frequency: " );
+  Serial.println( ESP.getCpuFreqMHz() );
 	Serial.printf( "  Cycle count: %u\n", ESP.getCycleCount() );
 	Serial.printf( "  SDK version: %s\n", ESP.getSdkVersion() );
 
