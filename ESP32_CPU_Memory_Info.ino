@@ -4,6 +4,7 @@ The chipId portion is based on the GetChipID example sketch which is installed i
 
 unsigned long lastPrint = 0;				// This is used to determine the time since last MQTT publish.
 unsigned long printDelay = 20000;		// The minimum time between loop() function stat publishing.
+unsigned long loopCount = 0;        // The number of iterations the program has had.
 uint32_t chipId = 0;							// Holds the CPU ID, e.g. 12734324.
 const int LED_PIN_1 = 2;					// Set this to the GPIO of the first LED.
 const int LED_PIN_2 = 16;					// Set this to the GPIO of the second LED.  If the board has only one LED, set this to the value of LED_PIN_1
@@ -29,14 +30,14 @@ void setup()
 	// pinMode( LED_PIN_2, OUTPUT );
 	// digitalWrite( LED_PIN_2, HIGH );
 
-	printStats();
-
 	Serial.println( "The setup() function has completed.\n" );
 } // End of setup() function.
 
 
 void printStats()
 {
+  Serial.print( "Loop count ");
+  Serial.println( loopCount );
 	Serial.print( "Source file: " );
 	Serial.println( __FILE__ );
 
@@ -91,8 +92,9 @@ void printStats()
 
 void loop()
 {
+  loopCount++;
 	unsigned long currentTime = millis();
-	if( currentTime - lastPrint >= printDelay )
+	if( loopCount == 0 || currentTime - lastPrint >= printDelay )
 	{
 		printStats();
 		lastPrint = millis();
