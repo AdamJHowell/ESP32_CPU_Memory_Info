@@ -1,3 +1,9 @@
+.idea/
+*.iml
+privateInfo.h
+debug_custom.json
+*.svd
+
 .vscode/
 .idea/
 *.iml
