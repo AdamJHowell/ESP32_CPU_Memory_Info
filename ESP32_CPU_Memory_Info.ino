@@ -2,17 +2,16 @@
 The chipId portion is based on the GetChipID example sketch which is installed in the Arduino IDE once ESP32 board support is added.
 */
 
-unsigned long lastPrint = 0;		 // This is used to determine the time since last MQTT publish.
-unsigned long printDelay = 20000; // The minimum time between loop() function stat publishing.
-unsigned long loopCount = 0;		 // The number of iterations the program has had.
-uint32_t chipId = 0;					 // Holds the CPU ID, e.g. 12734324.
-const int LED_PIN_1 = 2;			 // Set this to the GPIO of the first LED.
-const int LED_PIN_2 = 16;			 // Set this to the GPIO of the second LED.  If the board has only one LED, set this to the value of LED_PIN_1
+unsigned long loopCount = 0;				 // The number of iterations the program has had.
+unsigned long lastPrint = 0;				 // This is used to determine the time since last MQTT publish.
+const unsigned long printDelay = 20000; // The minimum time between loop() function stat publishing.
+const unsigned int LED_PIN_1 = 2;		 // Set this to the GPIO of the first LED.
+const unsigned int LED_PIN_2 = 16;		 // Set this to the GPIO of the second LED.  If the board has only one LED, set this to the value of LED_PIN_1
 
 
 void setup()
 {
-	// This delay gives me time to open the serial console after reflashing.
+	// This delay gives me time to open the serial console after re-flashing.
 	delay( 1000 );
 
 	Serial.begin( 115200 );
@@ -36,6 +35,8 @@ void setup()
 
 void printStats()
 {
+	uint32_t chipId = 0; // Holds the CPU ID, e.g. 12734324.
+
 	Serial.printf( "Loop count: %lu\n", loopCount );
 	Serial.print( "Source file: " );
 	Serial.println( __FILE__ );
@@ -91,13 +92,11 @@ void printStats()
 
 void loop()
 {
-	loopCount++;
-	if( loopCount == 0 || millis() - printDelay >= lastPrint )
+	if( loopCount == 0 || ( millis() - lastPrint ) >= printDelay )
 	{
+		loopCount++;
 		printStats();
 		lastPrint = millis();
-		Serial.print( "Next printout in " );
-		Serial.print( printDelay / 1000 );
-		Serial.println( " seconds.\n\n" );
+		Serial.printf( "Next printout in %d seconds\n\n\n", printDelay / 1000 );
 	}
 } // End of loop() function.
