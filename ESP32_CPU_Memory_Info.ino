@@ -2,18 +2,18 @@
 The chipId portion is based on the GetChipID example sketch which is installed in the Arduino IDE once ESP32 board support is added.
 */
 
-unsigned long lastPrint = 0;				// This is used to determine the time since last MQTT publish.
-unsigned long printDelay = 20000;		// The minimum time between loop() function stat publishing.
-int loopCount = 0;        // The number of iterations the program has had.
-uint32_t chipId = 0;							// Holds the CPU ID, e.g. 12734324.
-const int LED_PIN_1 = 2;					// Set this to the GPIO of the first LED.
-const int LED_PIN_2 = 16;					// Set this to the GPIO of the second LED.  If the board has only one LED, set this to the value of LED_PIN_1
+unsigned long lastPrint = 0;		 // This is used to determine the time since last MQTT publish.
+unsigned long printDelay = 20000; // The minimum time between loop() function stat publishing.
+unsigned long loopCount = 0;		 // The number of iterations the program has had.
+uint32_t chipId = 0;					 // Holds the CPU ID, e.g. 12734324.
+const int LED_PIN_1 = 2;			 // Set this to the GPIO of the first LED.
+const int LED_PIN_2 = 16;			 // Set this to the GPIO of the second LED.  If the board has only one LED, set this to the value of LED_PIN_1
 
 
 void setup()
 {
 	// This delay gives me time to open the serial console after reflashing.
-	delay( 500 );
+	delay( 1000 );
 
 	Serial.begin( 115200 );
 	if( !Serial )
@@ -36,14 +36,13 @@ void setup()
 
 void printStats()
 {
-  Serial.print( "Loop count ");
-  Serial.println( loopCount );
+	Serial.printf( "Loop count: %lu\n", loopCount );
 	Serial.print( "Source file: " );
 	Serial.println( __FILE__ );
 
 	for( int i = 0; i < 17; i = i + 8 )
 	{
-		chipId |= ( ( ESP.getEfuseMac() >> (40 - i) ) & 0xff ) << i;
+		chipId |= ( ( ESP.getEfuseMac() >> ( 40 - i ) ) & 0xff ) << i;
 	}
 
 	// Most of the ESP.get* functions are defined in esp.h for the appropriate ESP32 chip.
@@ -52,7 +51,7 @@ void printStats()
 	Serial.printf( "  Core count: %d\n", ESP.getChipCores() );
 	Serial.printf( "  Chip ID: %u\n", chipId );
 	Serial.print( "  Frequency: " );
-  Serial.println( ESP.getCpuFreqMHz() );
+	Serial.println( ESP.getCpuFreqMHz() );
 	Serial.printf( "  Cycle count: %u\n", ESP.getCycleCount() );
 	Serial.printf( "  SDK version: %s\n", ESP.getSdkVersion() );
 
@@ -92,9 +91,8 @@ void printStats()
 
 void loop()
 {
-  loopCount++;
-	unsigned long currentTime = millis();
-	if( loopCount == 0 || currentTime - lastPrint >= printDelay )
+	loopCount++;
+	if( loopCount == 0 || millis() - printDelay >= lastPrint )
 	{
 		printStats();
 		lastPrint = millis();
