@@ -1,4 +1,5 @@
 .idea/
+cmake-build-*/
 *.iml
 privateInfo.*
 debug_custom.json
