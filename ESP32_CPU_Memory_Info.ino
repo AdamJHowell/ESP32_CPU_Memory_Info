@@ -17,7 +17,7 @@ void setup()
 	Serial.begin( 115200 );
 	if( !Serial )
 		delay( 1000 );
-	Serial.setDebugOutput( true );
+	// Serial.setDebugOutput( true );
 	Serial.println();
 
 	Serial.println( "The setup() function has begun." );
