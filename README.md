@@ -34,3 +34,5 @@ PSRAM:
   Minimum free since boot: 4192139
 Next printout in 20 seconds.
 ```
+
+[![CodeFactor](https://www.codefactor.io/repository/github/adamjhowell/esp32_cpu_memory_info/badge)](https://www.codefactor.io/repository/github/adamjhowell/esp32_cpu_memory_info)
